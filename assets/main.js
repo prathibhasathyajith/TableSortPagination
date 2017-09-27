@@ -27,9 +27,9 @@ Object.prototype._table = function (properties) {
                     inx = index.path[1].cellIndex;
                 }
                 sortTable(inx, id);
-                
-                addCountCol(add_count,id);
-                replaceCountCol(add_count,id);
+
+                addCountCol(add_count, id);
+                replaceCountCol(add_count, id);
                 if (pagination_table) {
                     sliceTable(0, properties.table_rowCount, document.getElementById(id));
                 }
@@ -54,8 +54,8 @@ Object.prototype._table = function (properties) {
                     inx = index.path[1].cellIndex;
                 }
                 sortTable(inx, id);
-                addCountCol(add_count,id);
-                replaceCountCol(add_count,id);
+                addCountCol(add_count, id);
+                replaceCountCol(add_count, id);
                 if (pagination_table) {
                     sliceTable(0, properties.table_rowCount, document.getElementById(id));
                 }
@@ -100,12 +100,12 @@ Object.prototype._table = function (properties) {
     //add count
     if (properties.table_count) {
         add_count = true;
-        replaceCountCol(add_count,id);
+        replaceCountCol(add_count, id);
     }
     //pagination
     if (properties.table_pagination) {
         pagination_table = true;
-        pagination(properties.table_rowCount,id,properties.table_index);
+        pagination(properties.table_rowCount, id, properties.table_index);
     }
 
 
@@ -177,7 +177,7 @@ function sortTable(n, id) {
 //    document.head.appendChild(x);
 //}
 
-function replaceCountCol(add_count,tableId) {
+function replaceCountCol(add_count, tableId) {
 
     if (add_count) {
         var table = document.getElementById(tableId);
@@ -209,18 +209,18 @@ function replaceCountCol(add_count,tableId) {
 
 }
 
-function addCountCol(add_count,tableID) {
+function addCountCol(add_count, tableID) {
     if (add_count) {
         var table = document.getElementById(tableID);
         var row = table.getElementsByTagName("tr");
-        
+
         for (i = 0; i < row.length; i++) {
             var x = row[i].deleteCell(0);
         }
     }
 }
 
-function pagination(numPerPage,tableID,tableIndex) {
+function pagination(numPerPage, tableID, tableIndex) {
     var currentPage = 0;
     var numPerPage = numPerPage;
     var $table = document.getElementById(tableID);
@@ -230,12 +230,12 @@ function pagination(numPerPage,tableID,tableIndex) {
 
     sliceTable(currentPage, numPerPage, $table); //remove and add 
 
-    var id_index = "epic-ui-pager-"+tableIndex;
+    var id_index = "epic-ui-pager-" + tableIndex;
     console.log(id_index);
     var el = document.createElement("div");
     el.setAttribute("class", "epic-ui-pager");
     el.setAttribute("id", id_index);
-    
+
     console.log(tableID);
     $table.parentNode.insertBefore(el, $table.nextSibling);
 
@@ -244,25 +244,40 @@ function pagination(numPerPage,tableID,tableIndex) {
     //add pagen numbers with click event
     for (var page = 0; page < numPages; page++) {
         var span = document.createElement("span");
-        span.setAttribute("class", "epic-ui-pagenumber");
+        span.setAttribute("class", "epic-ui-pagenumber hide");
         span.textContent = page + 1;
         span.addEventListener("click", function (event) {
             currentPage = (this.innerText - 1);
             sliceTable(currentPage, numPerPage, $table);
 
+
+            console.log(this.previousSibling);
+
+
+            console.log(this.nextSibling);
+
             var count = this.parentElement.children.length;
             if (count > 0) {
                 for (i = 0; i < count; i++) {
-                    this.parentElement.children[i].className = "epic-ui-pagenumber clickable";
+                    this.parentElement.children[i].className = "epic-ui-pagenumber clickable hide";
                 }
             }
-            this.className += " epic-ui-active";
+            this.className = " epic-ui-pagenumber unhide epic-ui-active";
+            if(this.previousSibling!=null){
+                this.previousSibling.className = "epic-ui-pagenumber unhide";
+            }
+            if(this.nextSibling!=null){
+                this.nextSibling.className = "epic-ui-pagenumber unhide";
+            }
+            
+            
         });
         console.log(id_index);
         span.className += " clickable";
         $pager.appendChild(span);
     }
-    $pager.firstChild.className += " epic-ui-active"; // add active class on first page
+    $pager.firstChild.className = "epic-ui-pagenumber unhide epic-ui-active"; // add active class on first page
+    $pager.children[1].className = "epic-ui-pagenumber unhide";
 }
 
 //slice function

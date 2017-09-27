@@ -111,19 +111,22 @@ table.epic-ui-table >tbody >tr:nth-child(2n+2) {
     box-shadow: 8px 0px 0px 0px rgba(0, 0, 0, 0.6);
 }
 .epic-ui-pager > .epic-ui-pagenumber {
-    color: white;
+    color: black;
     background-color: white;
     /* border: 2px solid #55617e; */
     padding: 1px 5px 1px 5px;
     border-radius: 4px;
     margin: 0 1px 0px 0px;
     cursor: pointer;
-    background: rgb(174, 188, 191);
-    background: -moz-linear-gradient(top, rgba(174, 188, 191, 1) 0%, rgba(110, 119, 116, 1) 50%, rgba(10, 14, 10, 1) 51%, rgba(10, 8, 9, 1) 100%);
-    background: -webkit-linear-gradient(top, rgba(174, 188, 191, 1) 0%, rgba(110, 119, 116, 1) 50%, rgba(10, 14, 10, 1) 51%, rgba(10, 8, 9, 1) 100%);
-    background: linear-gradient(to bottom, rgba(174, 188, 191, 1) 0%, rgba(110, 119, 116, 1) 50%, rgba(10, 14, 10, 1) 51%, rgba(10, 8, 9, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf', endColorstr='#0a0809', GradientType=0);
+    
 }
 .epic-ui-pager > .epic-ui-active {
     color: red;
+}
+
+.hide{
+    display: none;
+}
+.unhide{
+    display: "";
 }
