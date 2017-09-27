@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<title>Sort</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js" type="text/javascript"></script>
+<link href="dd/main.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<body>
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Country2</th>
+                <th>Number</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Berglunds snabbkop</td>
+                <td>Sweden</td>
+                <td>UK</td>
+                <td>2</td>
+                <td>2017-09-25 09:21:05</td>
+            </tr>
+            <tr>
+                <td>Berglunds anabbkop</td>
+                <td>UK</td>
+                <td>Sweden</td>
+                <td>4</td>
+                <td>2017-09-25 09:22:05</td>
+            </tr>
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Germany</td>
+                <td>Italy</td>
+                <td>7</td>
+                <td>2017-09-25 09:21:45</td>
+            </tr>
+            <tr>
+                <td>Koniglich Essen</td>
+                <td>Germany</td>
+                <td>CanadaCanada</td>
+                <td>DD1</td>
+                <td>2017-09-25 09:21:45</td>
+            </tr>
+            <tr>
+                <td>Magazzini Alimentari Riuniti</td>
+                <td>Italy</td>
+                <td>Germany</td>
+                <td>DD2</td>
+                <td>2017-11-25 09:21:55</td>
+            </tr>
+            <tr>
+                <td>Paris specialites</td>
+                <td>France</td>
+                <td>Germany</td>
+                <td>11</td>
+                <td>2017-09-25 19:21:05</td>
+            </tr>
+            <tr>
+                <td>Island Trading</td>
+                <td>UK</td>
+                <td>Italy</td>
+                <td>56</td>
+                <td>2017-02-25 09:21:05</td>
+            </tr>
+            <tr>
+                <td>Laughing Bacchus Winecellars</td>
+                <td>Canada</td>
+                <td>UK</td>
+                <td>24</td>
+                <td>2017-08-21 09:21:05</td>
+            </tr>
+            <tr>
+                <td>Magazzini Alimentari Riuniti</td>
+                <td>Italy</td>
+                <td>Germany</td>
+                <td>DD2</td>
+                <td>2017-11-25 09:21:55</td>
+            </tr>
+            <tr>
+                <td>Paris specialites</td>
+                <td>France</td>
+                <td>Germany</td>
+                <td>11</td>
+                <td>2017-09-25 19:21:05</td>
+            </tr>
+            <tr>
+                <td>Island Trading</td>
+                <td>UK</td>
+                <td>Italy</td>
+                <td>56</td>
+                <td>2017-02-25 09:21:05</td>
+            </tr>
+            <tr>
+                <td>Laughing Bacchus Winecellars</td>
+                <td>Canada</td>
+                <td>UK</td>
+                <td>24</td>
+                <td>2017-08-21 09:21:05</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <!--    <div class="pager" id="ss"></div>-->
+
+    <script src="dd/main.js" type="text/javascript"></script>
+    <script>
+        document.getElementById("myTable")._table({
+            table_index: 1,//mandatory
+            sort_all: false,
+            sort_columns: [1, 2, 4],
+            sort_colum_selective: true,
+            table_title: ["Example title", "l"],
+            table_ui_theme: true,
+            table_count: true,
+            table_pagination: true,
+            table_rowCount: 6
+        });
+
+    </script>
+
+
+</body>
+
+</html>
