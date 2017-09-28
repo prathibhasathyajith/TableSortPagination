@@ -11,7 +11,7 @@ var pagination_table = false; //pagination
 Object.prototype._table = function (properties) {
 
     var id = this.id;
-    var i, rows, count, th, span, ss;
+    var i, rows, count, th, span;
     var sort_columns = getSortableColumnList(this.getElementsByTagName("th"));
 
     rows = this.getElementsByTagName("TR");
@@ -19,8 +19,11 @@ Object.prototype._table = function (properties) {
     th = rows[0].getElementsByTagName("TH");
     span = document.createElement("span");
 
-
-
+    //reset column width
+    if(properties.table_fitColumns){
+        this._tableWidth();
+    }
+    
     //sort all columns
     if (properties.sort_all) {
         for (i = 0; i < count; i++) {
@@ -30,6 +33,7 @@ Object.prototype._table = function (properties) {
                     inx = index.path[1].cellIndex;
                 }
                 sortTable(inx, id);
+                toFirstPage(properties.table_index);
                 addCountCol(add_count, id);
                 replaceCountCol(add_count, id, properties.table_ui_theme);
                 if (pagination_table) {
@@ -56,6 +60,7 @@ Object.prototype._table = function (properties) {
                     inx = index.path[1].cellIndex;
                 }
                 sortTable(inx, id);
+                toFirstPage(properties.table_index);
                 addCountCol(add_count, id);
                 replaceCountCol(add_count, id, properties.table_ui_theme);
                 if (pagination_table) {
@@ -245,7 +250,7 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
     var $pager = document.getElementById(id_index); //pagination element
 
     //add record count
-    recordCount(numRows,$pager);
+    recordCount(numRows, $pager);
     //add '<' arrow to front
     addArrowLeft($pager);
 
@@ -342,9 +347,35 @@ function addArrowRight($pager) {
 }
 
 //add record count to pagination
-function recordCount(numRows,$pager){
+function recordCount(numRows, $pager) {
     var span = document.createElement("span");
     span.setAttribute("class", "epic-ui-recordCount");
-    span.textContent = "Records : "+numRows;
+    span.textContent = "Records : " + numRows;
     $pager.appendChild(span);
+}
+
+//get max length of columns
+Object.prototype._tableWidth = function () {
+    var width, rows, count, colWidth, th, i, $pager;
+    width = this.parentElement.offsetWidth
+    rows = this.getElementsByTagName("TR");
+    count = rows[0].getElementsByTagName("TH").length;
+    th = rows[0].getElementsByTagName("TH");
+    colWidth = Math.ceil(width / count);
+
+    for (i = 0; i < count; i++) {
+        th[i].style.cursor = "pointer";
+        th[i].style.width = colWidth + "px";
+        th[i].className += " epic-ui-noselect";
+    }
+
+}
+
+function toFirstPage(tableIndex) {
+    var id_index = "epic-ui-pager-" + tableIndex;
+    var $pager = document.getElementById(id_index);
+    var span = $pager.firstChild.nextSibling.nextSibling;
+    var click = new Event('click');
+    span.dispatchEvent(click);
+
 }
