@@ -31,7 +31,7 @@ Object.prototype._table = function (properties) {
                 }
                 sortTable(inx, id);
                 addCountCol(add_count, id);
-                replaceCountCol(add_count, id,properties.table_ui_theme);
+                replaceCountCol(add_count, id, properties.table_ui_theme);
                 if (pagination_table) {
                     sliceTable(0, properties.table_rowCount, document.getElementById(id));
                 }
@@ -57,7 +57,7 @@ Object.prototype._table = function (properties) {
                 }
                 sortTable(inx, id);
                 addCountCol(add_count, id);
-                replaceCountCol(add_count, id,properties.table_ui_theme);
+                replaceCountCol(add_count, id, properties.table_ui_theme);
                 if (pagination_table) {
                     sliceTable(0, properties.table_rowCount, document.getElementById(id));
                 }
@@ -102,12 +102,12 @@ Object.prototype._table = function (properties) {
     //add count
     if (properties.table_count) {
         add_count = true;
-        replaceCountCol(add_count, id,properties.table_ui_theme);
+        replaceCountCol(add_count, id, properties.table_ui_theme);
     }
     //pagination
     if (properties.table_pagination) {
         pagination_table = true;
-        pagination(properties.table_rowCount, id, properties.table_index,properties.table_ui_theme);
+        pagination(properties.table_rowCount, id, properties.table_index, properties.table_ui_theme);
     }
 
 
@@ -222,7 +222,7 @@ function addCountCol(add_count, tableID) {
     }
 }
 
-function pagination(numPerPage, tableID, tableIndex,theme) {
+function pagination(numPerPage, tableID, tableIndex, theme) {
     var currentPage = 0;
     var numPerPage = numPerPage;
     var $table = document.getElementById(tableID);
@@ -233,22 +233,24 @@ function pagination(numPerPage, tableID, tableIndex,theme) {
     sliceTable(currentPage, numPerPage, $table); //remove and add 
 
     var id_index = "epic-ui-pager-" + tableIndex;
-    console.log(id_index);
     var el = document.createElement("div");
-    if(theme){
+    
+    //insert theme colors
+    if (theme) {
         el.setAttribute("class", "epic-ui-pager");
     }
     el.setAttribute("id", id_index);
-
-    console.log(tableID);
     $table.parentNode.insertBefore(el, $table.nextSibling);
 
     var $pager = document.getElementById(id_index); //pagination element
 
+    //add '<' arrow to front
+    addArrowLeft($pager);
+
     //add pagen numbers with click event
     for (var page = 0; page < numPages; page++) {
         var span = document.createElement("span");
-        span.setAttribute("class", "epic-ui-pagenumber hide");
+        span.setAttribute("class", "epic-ui-pagenumber epic-ui-hide");
         span.textContent = page + 1;
         span.addEventListener("click", function (event) {
             currentPage = (this.innerText - 1);
@@ -256,26 +258,28 @@ function pagination(numPerPage, tableID, tableIndex,theme) {
 
             var count = this.parentElement.children.length;
             if (count > 0) {
-                for (i = 0; i < count; i++) {
-                    this.parentElement.children[i].className = "epic-ui-pagenumber clickable hide";
+                for (i = 1; i < count - 1; i++) {
+                    this.parentElement.children[i].className = "epic-ui-pagenumber epic-ui-hide";
                 }
             }
-            this.className = " epic-ui-pagenumber unhide epic-ui-active";
-            if (this.previousSibling != null) {
-                this.previousSibling.className = "epic-ui-pagenumber unhide";
+            this.className = " epic-ui-pagenumber epic-ui-unhide epic-ui-active";
+            if (this.previousSibling != null && this.previousSibling.className != "epic-ui-pageup") {
+                this.previousSibling.className = "epic-ui-pagenumber epic-ui-unhide";
             }
-            if (this.nextSibling != null) {
-                this.nextSibling.className = "epic-ui-pagenumber unhide";
+            if (this.nextSibling != null && this.nextSibling.className != "epic-ui-pagedown") {
+                this.nextSibling.className = "epic-ui-pagenumber epic-ui-unhide";
             }
-
 
         });
         console.log(id_index);
-        span.className += " clickable";
+        //        span.className += " clickable";
         $pager.appendChild(span);
     }
-    $pager.firstChild.className = "epic-ui-pagenumber unhide epic-ui-active"; // add active class on first page
-    $pager.children[1].className = "epic-ui-pagenumber unhide";
+    $pager.firstChild.nextSibling.className = "epic-ui-pagenumber unhide epic-ui-active"; // add active class on first page
+    $pager.children[2].className = "epic-ui-pagenumber unhide";
+
+    //add '>' arrow to back
+    addArrowRight($pager);
 }
 
 //slice function
@@ -307,4 +311,28 @@ function getSortableColumnList(object) {
         }
     }
     return sortColunms;
+}
+
+function addArrowLeft($pager) {
+    var span = document.createElement("span");
+    span.setAttribute("class", "epic-ui-pageup");
+    span.textContent = "<";
+    span.addEventListener("click", function (event) {
+        var span = this.nextSibling;
+        var click = new Event('click');
+        span.dispatchEvent(click);
+    });
+    $pager.appendChild(span);
+}
+
+function addArrowRight($pager) {
+    var span = document.createElement("span");
+    span.setAttribute("class", "epic-ui-pagedown");
+    span.textContent = ">";
+    span.addEventListener("click", function (event) {
+        var span = this.previousSibling;
+        var click = new Event('click');
+        span.dispatchEvent(click);
+    });
+    $pager.appendChild(span);
 }

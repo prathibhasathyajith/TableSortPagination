@@ -103,30 +103,54 @@ table.epic-ui-table >tbody >tr:nth-child(2n+2) {
 /*pagination*/
 
 .epic-ui-pager {
-    background-color: #404d6c;
-    padding: 5px 0px 5px 100px;
-    width: 14%;
-    border-bottom-right-radius: 37px;
+    background-color: #55617e;
+    text-align: center;
+    padding: 4px 0px 5px 0px;
+    border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    box-shadow: 8px 0px 0px 0px rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: bold;
 }
 .epic-ui-pager > .epic-ui-pagenumber {
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: #55617e;
     /* border: 2px solid #55617e; */
     padding: 1px 5px 1px 5px;
-    border-radius: 4px;
-    margin: 0 1px 0px 0px;
+    border-radius: 10px;
+    margin: 0px 3px 0px 0px;
     cursor: pointer;
-    
+    transition: 0.3s;
+}
+.epic-ui-pager > .epic-ui-pagenumber:hover {
+    background-color: #2c3e50;
+    color: white;
 }
 .epic-ui-pager > .epic-ui-active {
-    color: red;
+    color: #000000;
+    background-color: #ffffff;
 }
-
-.hide{
+.epic-ui-pager > .epic-ui-pageup {
+    margin: 0 5px 0 0px;
+    background: #404d6c;
+    color: white;
+    padding: 4px 10px 5px 10px;
+    cursor: pointer;
+}
+.epic-ui-pager > .epic-ui-pageup:hover,
+.epic-ui-pager > .epic-ui-pagedown:hover {
+    background-color: #f1c40f;
+}
+.epic-ui-pager > .epic-ui-pagedown {
+    margin: 0 0px 0 5px;
+    background: #404d6c;
+    color: white;
+    padding: 4px 10px 5px 10px;
+    cursor: pointer;
+}
+.epic-ui-hide {
     display: none;
 }
-.unhide{
+.epic-ui-unhide {
     display: "";
 }
