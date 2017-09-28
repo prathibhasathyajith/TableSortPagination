@@ -10,11 +10,11 @@
     <table id="myTable">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Country</th>
-                <th>Country2</th>
-                <th>Number</th>
-                <th>Time</th>
+                <th data-sortable="true">Name</th>
+                <th data-sortable="true">Country</th>
+                <th data-sortable="false">Country2</th>
+                <th data-sortable="true">Number</th>
+                <th data-sortable="false">Time</th>
             </tr>
         </thead>
         <tbody>
@@ -115,7 +115,6 @@
         document.getElementById("myTable")._table({
             table_index: 1,//mandatory
             sort_all: false,
-            sort_columns: [1, 2, 4],
             sort_colum_selective: true,
             table_title: ["Example title", "l"],
             table_ui_theme: true,

@@ -12,11 +12,14 @@ Object.prototype._table = function (properties) {
 
     var id = this.id;
     var i, rows, count, th, span, ss;
+    var sort_columns = getSortableColumnList(this.getElementsByTagName("th"));
 
     rows = this.getElementsByTagName("TR");
     count = rows[0].getElementsByTagName("TH").length;
     th = rows[0].getElementsByTagName("TH");
     span = document.createElement("span");
+
+
 
     //sort all columns
     if (properties.sort_all) {
@@ -27,9 +30,8 @@ Object.prototype._table = function (properties) {
                     inx = index.path[1].cellIndex;
                 }
                 sortTable(inx, id);
-
                 addCountCol(add_count, id);
-                replaceCountCol(add_count, id);
+                replaceCountCol(add_count, id,properties.table_ui_theme);
                 if (pagination_table) {
                     sliceTable(0, properties.table_rowCount, document.getElementById(id));
                 }
@@ -43,8 +45,8 @@ Object.prototype._table = function (properties) {
 
     }
     //sort specific columns
-    else if (properties.sort_all == false && properties.sort_columns.length > 0) {
-        properties.sort_columns.forEach(function (element) {
+    else if (properties.sort_all == false && sort_columns.length > 0) {
+        sort_columns.forEach(function (element) {
 
             var indexi = element
 
@@ -55,7 +57,7 @@ Object.prototype._table = function (properties) {
                 }
                 sortTable(inx, id);
                 addCountCol(add_count, id);
-                replaceCountCol(add_count, id);
+                replaceCountCol(add_count, id,properties.table_ui_theme);
                 if (pagination_table) {
                     sliceTable(0, properties.table_rowCount, document.getElementById(id));
                 }
@@ -100,12 +102,12 @@ Object.prototype._table = function (properties) {
     //add count
     if (properties.table_count) {
         add_count = true;
-        replaceCountCol(add_count, id);
+        replaceCountCol(add_count, id,properties.table_ui_theme);
     }
     //pagination
     if (properties.table_pagination) {
         pagination_table = true;
-        pagination(properties.table_rowCount, id, properties.table_index);
+        pagination(properties.table_rowCount, id, properties.table_index,properties.table_ui_theme);
     }
 
 
@@ -113,9 +115,11 @@ Object.prototype._table = function (properties) {
 
 function sortTable(n, id) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+
     table = document.getElementById(id);
     switching = true;
     dir = "asc";
+
     while (switching) {
         switching = false;
         rows = table.getElementsByTagName("TR");
@@ -157,18 +161,15 @@ function sortTable(n, id) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             switchcount++;
-
-
         } else {
             if (switchcount == 0 && dir == "asc") {
                 dir = "desc";
                 switching = true;
             }
         }
-
     }
-
 }
+
 //function createCSSLink() {
 //    var x = document.createElement("LINK");
 //    x.setAttribute("rel", "stylesheet");
@@ -177,7 +178,7 @@ function sortTable(n, id) {
 //    document.head.appendChild(x);
 //}
 
-function replaceCountCol(add_count, tableId) {
+function replaceCountCol(add_count, tableId, theme) {
 
     if (add_count) {
         var table = document.getElementById(tableId);
@@ -191,17 +192,18 @@ function replaceCountCol(add_count, tableId) {
         var row = table.getElementsByTagName("tr");
         for (i = 1; i < row.length; i++) {
             var x = row[i].insertCell(0);
-            x.style.textAlign = "center";
-            if (i % 2 == 0) {
-                x.style.backgroundColor = "#404d6c";
-            } else {
-                x.style.backgroundColor = "#55617e";
+            if (theme) {
+                x.style.textAlign = "center";
+                if (i % 2 == 0) {
+                    x.style.backgroundColor = "#404d6c";
+                } else {
+                    x.style.backgroundColor = "#55617e";
+                }
+                x.style.color = "#00bcd4";
+                x.style.fontWeight = "bold";
+                //            x.style.borderTop = "1px solid gray";
+                //        x.style.position = "fixed";
             }
-
-            x.style.color = "#00bcd4";
-            x.style.fontWeight = "bold";
-            //            x.style.borderTop = "1px solid gray";
-            //        x.style.position = "fixed";
 
             x.innerHTML = i;
         }
@@ -220,7 +222,7 @@ function addCountCol(add_count, tableID) {
     }
 }
 
-function pagination(numPerPage, tableID, tableIndex) {
+function pagination(numPerPage, tableID, tableIndex,theme) {
     var currentPage = 0;
     var numPerPage = numPerPage;
     var $table = document.getElementById(tableID);
@@ -233,7 +235,9 @@ function pagination(numPerPage, tableID, tableIndex) {
     var id_index = "epic-ui-pager-" + tableIndex;
     console.log(id_index);
     var el = document.createElement("div");
-    el.setAttribute("class", "epic-ui-pager");
+    if(theme){
+        el.setAttribute("class", "epic-ui-pager");
+    }
     el.setAttribute("id", id_index);
 
     console.log(tableID);
@@ -250,12 +254,6 @@ function pagination(numPerPage, tableID, tableIndex) {
             currentPage = (this.innerText - 1);
             sliceTable(currentPage, numPerPage, $table);
 
-
-            console.log(this.previousSibling);
-
-
-            console.log(this.nextSibling);
-
             var count = this.parentElement.children.length;
             if (count > 0) {
                 for (i = 0; i < count; i++) {
@@ -263,14 +261,14 @@ function pagination(numPerPage, tableID, tableIndex) {
                 }
             }
             this.className = " epic-ui-pagenumber unhide epic-ui-active";
-            if(this.previousSibling!=null){
+            if (this.previousSibling != null) {
                 this.previousSibling.className = "epic-ui-pagenumber unhide";
             }
-            if(this.nextSibling!=null){
+            if (this.nextSibling != null) {
                 this.nextSibling.className = "epic-ui-pagenumber unhide";
             }
-            
-            
+
+
         });
         console.log(id_index);
         span.className += " clickable";
@@ -298,4 +296,15 @@ function sliceTable(currentPage, numPerPage, $table) {
     for (k = 0; k < sliceArray.length; k++) {
         sliceArray[k].style.display = "";
     }
+}
+
+function getSortableColumnList(object) {
+    var count = object.length;
+    var sortColunms = [];
+    for (var i = 0; i < count; i++) {
+        if (object[i].getAttribute("data-sortable") == "true") {
+            sortColunms.push(i + 1);
+        }
+    }
+    return sortColunms;
 }
