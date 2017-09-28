@@ -234,16 +234,18 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
 
     var id_index = "epic-ui-pager-" + tableIndex;
     var el = document.createElement("div");
-    
+
     //insert theme colors
     if (theme) {
-        el.setAttribute("class", "epic-ui-pager");
+        el.setAttribute("class", "epic-ui-pager epic-ui-noselect");
     }
     el.setAttribute("id", id_index);
     $table.parentNode.insertBefore(el, $table.nextSibling);
 
     var $pager = document.getElementById(id_index); //pagination element
 
+    //add record count
+    recordCount(numRows,$pager);
     //add '<' arrow to front
     addArrowLeft($pager);
 
@@ -258,7 +260,7 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
 
             var count = this.parentElement.children.length;
             if (count > 0) {
-                for (i = 1; i < count - 1; i++) {
+                for (i = 2; i < count - 1; i++) {
                     this.parentElement.children[i].className = "epic-ui-pagenumber epic-ui-hide";
                 }
             }
@@ -275,8 +277,8 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
         //        span.className += " clickable";
         $pager.appendChild(span);
     }
-    $pager.firstChild.nextSibling.className = "epic-ui-pagenumber unhide epic-ui-active"; // add active class on first page
-    $pager.children[2].className = "epic-ui-pagenumber unhide";
+    $pager.firstChild.nextSibling.nextSibling.className = "epic-ui-pagenumber unhide epic-ui-active"; // add active class on first page
+    $pager.children[3].className = "epic-ui-pagenumber unhide";
 
     //add '>' arrow to back
     addArrowRight($pager);
@@ -313,6 +315,7 @@ function getSortableColumnList(object) {
     return sortColunms;
 }
 
+//left arrow
 function addArrowLeft($pager) {
     var span = document.createElement("span");
     span.setAttribute("class", "epic-ui-pageup");
@@ -325,6 +328,7 @@ function addArrowLeft($pager) {
     $pager.appendChild(span);
 }
 
+//right arrow
 function addArrowRight($pager) {
     var span = document.createElement("span");
     span.setAttribute("class", "epic-ui-pagedown");
@@ -334,5 +338,13 @@ function addArrowRight($pager) {
         var click = new Event('click');
         span.dispatchEvent(click);
     });
+    $pager.appendChild(span);
+}
+
+//add record count to pagination
+function recordCount(numRows,$pager){
+    var span = document.createElement("span");
+    span.setAttribute("class", "epic-ui-recordCount");
+    span.textContent = "Records : "+numRows;
     $pager.appendChild(span);
 }

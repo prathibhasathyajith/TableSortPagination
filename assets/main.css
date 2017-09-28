@@ -25,6 +25,20 @@
     padding: 3px 0 0 10px;
     content: url(svg/sort-down-black.svg);
 }
+.epic-ui-svg-leftArrow{
+    position: fixed;
+    width: 10px;
+    height: auto;
+    padding: 3px 0 0 10px;
+    content: url(svg/rewind-left.svg);
+}
+.epic-ui-svg-rightArrow{
+    position: fixed;
+    width: 10px;
+    height: auto;
+    padding: 3px 0 0 10px;
+    content: url(svg/rewind-right.svg);
+}
 
 /*table ui*/
 
@@ -136,10 +150,11 @@ table.epic-ui-table >tbody >tr:nth-child(2n+2) {
     color: white;
     padding: 4px 10px 5px 10px;
     cursor: pointer;
+    font-family: monospace;
 }
 .epic-ui-pager > .epic-ui-pageup:hover,
 .epic-ui-pager > .epic-ui-pagedown:hover {
-    background-color: #f1c40f;
+    background-color: #00BCD4;
 }
 .epic-ui-pager > .epic-ui-pagedown {
     margin: 0 0px 0 5px;
@@ -147,6 +162,13 @@ table.epic-ui-table >tbody >tr:nth-child(2n+2) {
     color: white;
     padding: 4px 10px 5px 10px;
     cursor: pointer;
+    font-family: monospace;
+}
+.epic-ui-pager > .epic-ui-recordCount{
+    margin: 0 5px 0 -50px;
+    padding: 0 3px 0 3px;
+    border: 1px solid #dadfea;
+    color: #dadfea;
 }
 .epic-ui-hide {
     display: none;
