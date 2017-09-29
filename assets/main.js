@@ -2,6 +2,7 @@
 // Table sort with pagination by prathibha - Epic Lanka (Pvt) Ltd
 //----------------------------------------------------------------
 
+
 //globel variables
 var icon; //sort icon
 var add_count = false; //count column
@@ -20,10 +21,10 @@ Object.prototype._table = function (properties) {
     span = document.createElement("span");
 
     //reset column width
-    if(properties.table_fitColumns){
+    if (properties.table_fitColumns) {
         this._tableWidth();
     }
-    
+
     //sort all columns
     if (properties.sort_all) {
         for (i = 0; i < count; i++) {
@@ -184,12 +185,14 @@ function sortTable(n, id) {
 //}
 
 function replaceCountCol(add_count, tableId, theme) {
-
+    var table,ths,tr,th;
+    
     if (add_count) {
-        var table = document.getElementById(tableId);
-        var ths = document.getElementById(tableId).tHead.children[0].children[0];
-        var tr = document.getElementById(tableId).tHead.children[0];
-        var th = document.createElement('th');
+        table = document.getElementById(tableId);
+        ths = document.getElementById(tableId).tHead.children[0].children[0];
+        tr = document.getElementById(tableId).tHead.children[0];
+        
+        th = document.createElement('th');
         th.setAttribute("style", "width:1px;");
         th.innerHTML = "";
         tr.insertBefore(th, ths);
@@ -217,28 +220,65 @@ function replaceCountCol(add_count, tableId, theme) {
 }
 
 function addCountCol(add_count, tableID) {
+    var table,row;
     if (add_count) {
-        var table = document.getElementById(tableID);
-        var row = table.getElementsByTagName("tr");
-
+        table = document.getElementById(tableID);
+        row = table.getElementsByTagName("tr");
         for (i = 0; i < row.length; i++) {
             var x = row[i].deleteCell(0);
         }
     }
 }
 
+//slice function
+function sliceTable(currentPage, numPerPage, $table) {
+    var i, j, k,rows,toarray,sliceArray;
+    
+    rows = $table.getElementsByTagName("TR");
+    toarray = [];
+
+    for (i = 0; i < rows.length - 1; i++) {
+        toarray[i] = rows[i + 1];
+    }
+    //slice 
+    sliceArray = toarray.slice(currentPage * numPerPage, (currentPage + 1) * numPerPage);
+
+    for (j = 1; j < rows.length; j++) {
+        rows[j].style.display = "none";
+    }
+    for (k = 0; k < sliceArray.length; k++) {
+        sliceArray[k].style.display = "";
+    }
+}
+
+function getSortableColumnList(object) {
+    var count = object.length;
+    var sortColunms = [];
+    for (var i = 0; i < count; i++) {
+        if (object[i].getAttribute("data-sortable") == "true") {
+            sortColunms.push(i + 1);
+        }
+    }
+    return sortColunms;
+}
+
+//------------------pagination-----------------------------------------------------
+
 function pagination(numPerPage, tableID, tableIndex, theme) {
-    var currentPage = 0;
-    var numPerPage = numPerPage;
-    var $table = document.getElementById(tableID);
-    var rows = $table.getElementsByTagName("TR");
-    var numRows = (rows.length - 1); //except first table head row
-    var numPages = Math.ceil(numRows / numPerPage);
+    
+    var currentPage,numPerPage,$table,rows,numRows,numPages,id_index,el,$pager;
+    
+    currentPage = 0;
+    numPerPage = numPerPage;
+    $table = document.getElementById(tableID);
+    rows = $table.getElementsByTagName("TR");
+    numRows = (rows.length - 1); //except first table head row
+    numPages = Math.ceil(numRows / numPerPage);
 
     sliceTable(currentPage, numPerPage, $table); //remove and add 
 
-    var id_index = "epic-ui-pager-" + tableIndex;
-    var el = document.createElement("div");
+    id_index = "epic-ui-pager-" + tableIndex;
+    el = document.createElement("div");
 
     //insert theme colors
     if (theme) {
@@ -247,10 +287,11 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
     el.setAttribute("id", id_index);
     $table.parentNode.insertBefore(el, $table.nextSibling);
 
-    var $pager = document.getElementById(id_index); //pagination element
+    $pager = document.getElementById(id_index); //pagination element
 
     //add record count
     recordCount(numRows, $pager);
+
     //add '<' arrow to front
     addArrowLeft($pager);
 
@@ -278,7 +319,6 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
             }
 
         });
-        console.log(id_index);
         //        span.className += " clickable";
         $pager.appendChild(span);
     }
@@ -287,37 +327,6 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
 
     //add '>' arrow to back
     addArrowRight($pager);
-}
-
-//slice function
-function sliceTable(currentPage, numPerPage, $table) {
-    var i, j, k;
-    var rows = $table.getElementsByTagName("TR");
-    var toarray = [];
-
-    for (i = 0; i < rows.length - 1; i++) {
-        toarray[i] = rows[i + 1];
-    }
-    //slice 
-    var sliceArray = toarray.slice(currentPage * numPerPage, (currentPage + 1) * numPerPage);
-
-    for (j = 1; j < rows.length; j++) {
-        rows[j].style.display = "none";
-    }
-    for (k = 0; k < sliceArray.length; k++) {
-        sliceArray[k].style.display = "";
-    }
-}
-
-function getSortableColumnList(object) {
-    var count = object.length;
-    var sortColunms = [];
-    for (var i = 0; i < count; i++) {
-        if (object[i].getAttribute("data-sortable") == "true") {
-            sortColunms.push(i + 1);
-        }
-    }
-    return sortColunms;
 }
 
 //left arrow
@@ -354,9 +363,24 @@ function recordCount(numRows, $pager) {
     $pager.appendChild(span);
 }
 
+//
+function toFirstPage(tableIndex) {
+    var id_index,$pager,span,click
+    
+    id_index = "epic-ui-pager-" + tableIndex;
+    $pager = document.getElementById(id_index);
+    span = $pager.firstChild.nextSibling.nextSibling;
+    click = new Event('click');
+    span.dispatchEvent(click);
+
+}
+
+//---------------------------------------------------------------------------------
+
 //get max length of columns
 Object.prototype._tableWidth = function () {
     var width, rows, count, colWidth, th, i, $pager;
+    
     width = this.parentElement.offsetWidth
     rows = this.getElementsByTagName("TR");
     count = rows[0].getElementsByTagName("TH").length;
@@ -368,14 +392,5 @@ Object.prototype._tableWidth = function () {
         th[i].style.width = colWidth + "px";
         th[i].className += " epic-ui-noselect";
     }
-
-}
-
-function toFirstPage(tableIndex) {
-    var id_index = "epic-ui-pager-" + tableIndex;
-    var $pager = document.getElementById(id_index);
-    var span = $pager.firstChild.nextSibling.nextSibling;
-    var click = new Event('click');
-    span.dispatchEvent(click);
 
 }
