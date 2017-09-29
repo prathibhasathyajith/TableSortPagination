@@ -12,8 +12,10 @@ var pagination_table = false; //pagination
 Object.prototype._table = function (properties) {
 
     var id = this.id;
-    var i, rows, count, th, span;
+    var i, rows, count, th, span, HiddenColumnList;
     var sort_columns = getSortableColumnList(this.getElementsByTagName("th"));
+
+
 
     rows = this.getElementsByTagName("TR");
     count = rows[0].getElementsByTagName("TH").length;
@@ -120,6 +122,12 @@ Object.prototype._table = function (properties) {
         }
     }
 
+    //hide data-hidden column list
+    HiddenColumnList = getHiddenColumnList(this.getElementsByTagName("th"));
+    hideColumn(this, HiddenColumnList);
+    
+    //bind row select event
+    bindClickEvent(this);
 
 }
 
@@ -177,6 +185,14 @@ function sortTable(n, id) {
                 switching = true;
             }
         }
+        //unselect row
+        for (var i = 0; i < rows.length; i++) {
+            var children = rows[i].parentNode.children;
+            for (var t = 0; t < children.length; t++) {
+                children[t].className = "row-unSelected";
+            }
+        }
+
     }
 }
 
@@ -213,6 +229,7 @@ function replaceCountCol(add_count, tableId, theme) {
                 }
                 x.style.color = "#00bcd4";
                 x.style.fontWeight = "bold";
+                x.style.width = "1px";
                 //            x.style.borderTop = "1px solid gray";
                 //        x.style.position = "fixed";
             }
@@ -264,6 +281,44 @@ function getSortableColumnList(object) {
         }
     }
     return sortColunms;
+}
+
+function getHiddenColumnList(object) {
+    var count = object.length;
+    var sortColunms = [];
+    for (var i = 0; i < count; i++) {
+        if (object[i].getAttribute("data-hidden") == "true") {
+            sortColunms.push(i);
+            object[i].setAttribute("hidden", "true");
+        }
+    }
+    return sortColunms;
+}
+
+function hideColumn(Object, HideArray) {
+    var trList = Object.getElementsByTagName("tr");
+
+    for (var i = 1; i < trList.length; i++) {
+        HideArray.forEach(function (item, index) {
+            trList[i].children[item].setAttribute("hidden", "true");
+        });
+    }
+}
+
+//row select event bind
+function bindClickEvent(Object) {
+    var node = [];
+    var trList = Object.getElementsByTagName("tr");
+
+    for (var i = 0; i < trList.length; i++) {
+        trList[i].addEventListener('click', function (event) {
+            node = this.parentNode.children;
+            for (var t = 0; t < node.length; t++) {
+                node[t].className = "row-unSelected";
+            }
+            this.className = "row-selected";
+        });
+    }
 }
 
 //------------------pagination-----------------------------------------------------
