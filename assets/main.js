@@ -1,6 +1,6 @@
-//----------------------------------------------------------------
-// Table sort with pagination by prathibha - Epic Lanka (Pvt) Ltd
-//----------------------------------------------------------------
+//--------------------------------------------------------------------------
+// Table sort with pagination by prathibha Sathyajith- Epic Lanka (Pvt) Ltd
+//--------------------------------------------------------------------------
 
 
 //globel variables
@@ -322,9 +322,13 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
         //        span.className += " clickable";
         $pager.appendChild(span);
     }
-    $pager.firstChild.nextSibling.nextSibling.className = "epic-ui-pagenumber unhide epic-ui-active"; // add active class on first page
-    $pager.children[3].className = "epic-ui-pagenumber unhide";
-
+    // add active class on first page
+    $pager.firstChild.nextSibling.nextSibling.className = "epic-ui-pagenumber unhide epic-ui-active"; 
+    //check if have 3rd element?
+    if(Boolean($pager.children[3])){
+        $pager.children[3].className = "epic-ui-pagenumber unhide";
+    }
+    
     //add '>' arrow to back
     addArrowRight($pager);
 }

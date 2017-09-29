@@ -373,15 +373,15 @@
     <script src="assets/main.js" type="text/javascript"></script>
     <script>
         document.getElementById("myTable")._table({
-            table_index: 1, //mandatory
-            sort_all: false,
-            sort_colum_selective: true,
-            table_title: ["Example title", "l"],
-            table_ui_theme: true,
-            table_count: true,
-            table_pagination: true,
-            table_rowCount: 4,
-            table_fitColumns:true
+            table_index: 1, //will be the pagination ID *mandatory
+            sort_all: false, // sort all columns
+            sort_colum_selective: true, // sort selected columns
+            table_title: ["Example title", "l"], //[table title,position(l,c,r)]
+            table_ui_theme: true,// activate css theme 
+            table_count: true,//side numbers (count)
+            table_pagination: true,// pagination on/off
+            table_rowCount: 12, // one page record count
+            table_fitColumns:true // resize column sizes accourding to full width
         });
         
     </script>
