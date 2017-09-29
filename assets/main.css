@@ -12,14 +12,14 @@
 /*svg elements*/
 
 .epic-ui-svg-sortup {
-    position: fixed;
+    position: absolute;
     width: 10px;
     height: auto;
     padding: 3px 0 0 10px;
     content: url(svg/sort-up-balck.svg);
 }
 .epic-ui-svg-sortdown {
-    position: fixed;
+    position: absolute;
     width: 10px;
     height: auto;
     padding: 3px 0 0 10px;
@@ -47,7 +47,7 @@ table.epic-ui-table {
     font-family: sans-serif;
     border-bottom: 5px solid #404d6c;
     border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 2px;
+    border-bottom-right-radius: 0px;
     /*    box-shadow: 0 0 3px black;*/
     width: 100%;
 }
@@ -172,14 +172,14 @@ table.epic-ui-table >tbody >tr:nth-child(2n+2) {
 }
 .epic-ui-pager > .epic-ui-numOfRows {
     margin: 0 0px 0 5px;
-    background: gray;
+    background: #55617e;
     color: white;
     padding: 4px 10px 5px 10px;
     font-family: sans-serif;
     font-size: 11px;
 }
 .epic-ui-pager > .epic-ui-numOfRows >.epic-ui-showRowClick {
-    background: #4f5c79;
+/*    background: #000000;*/
     color: #ffffff;
     margin: 1px;
     padding: 2px 3px 3px 3px;

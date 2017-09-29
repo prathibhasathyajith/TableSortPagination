@@ -285,7 +285,6 @@ function pagination(numPerPage, tableID, tableIndex, theme, rows_per_page) {
     el = document.createElement("div");
 
     //insert theme colors
-    console.log(theme);
     if (theme) {
         el.setAttribute("class", "epic-ui-pager epic-ui-noselect");
     }
