@@ -337,7 +337,7 @@ function pagination(numPerPage, tableID, tableIndex, theme) {
 function addArrowLeft($pager) {
     var span = document.createElement("span");
     span.setAttribute("class", "epic-ui-pageup");
-    span.textContent = "<";
+    span.textContent = "<<";
     span.addEventListener("click", function (event) {
         var span = this.nextSibling;
         var click = new Event('click');
@@ -350,7 +350,7 @@ function addArrowLeft($pager) {
 function addArrowRight($pager) {
     var span = document.createElement("span");
     span.setAttribute("class", "epic-ui-pagedown");
-    span.textContent = ">";
+    span.textContent = ">>";
     span.addEventListener("click", function (event) {
         var span = this.previousSibling;
         var click = new Event('click');
