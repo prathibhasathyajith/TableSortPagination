@@ -5,8 +5,6 @@
 
 //globel variables
 var icon; //sort icon
-var add_count = false; //count column
-var pagination_table = false; //pagination
 
 
 Object.prototype._table = function (properties) {
@@ -37,9 +35,9 @@ Object.prototype._table = function (properties) {
                 }
                 sortTable(inx, id);
                 toFirstPage(properties.table_index);
-                addCountCol(add_count, id);
-                replaceCountCol(add_count, id, properties.table_ui_theme);
-                if (pagination_table) {
+                addCountCol(properties.table_count, id);
+                replaceCountCol(properties.table_count, id, properties.table_ui_theme);
+                if (properties.table_pagination) {
                     sliceTable(0, properties.table_rowCount[0], document.getElementById(id));
                 }
                 span.setAttribute("class", icon);
@@ -64,9 +62,9 @@ Object.prototype._table = function (properties) {
                 }
                 sortTable(inx, id);
                 toFirstPage(properties.table_index);
-                addCountCol(add_count, id);
-                replaceCountCol(add_count, id, properties.table_ui_theme);
-                if (pagination_table) {
+                addCountCol(properties.table_count, id);
+                replaceCountCol(properties.table_count, id, properties.table_ui_theme);
+                if (properties.table_pagination) {
                     sliceTable(0, properties.table_rowCount[0], document.getElementById(id));
                 }
                 span.setAttribute("class", icon);
@@ -109,12 +107,10 @@ Object.prototype._table = function (properties) {
     }
     //add count
     if (properties.table_count) {
-        add_count = true;
-        replaceCountCol(add_count, id, properties.table_ui_theme);
+        replaceCountCol(properties.table_count, id, properties.table_ui_theme);
     }
     //pagination
     if (properties.table_pagination) {
-        pagination_table = true;
         try {
             pagination(properties.table_rowCount[0], id, properties.table_index, properties.table_ui_theme, properties.table_rowCount);
         } catch (e) {
@@ -487,5 +483,4 @@ Object.prototype._tableWidth = function () {
         th[i].style.width = colWidth + "px";
         th[i].className += " epic-ui-noselect";
     }
-
 }
