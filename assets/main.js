@@ -234,11 +234,13 @@ function replaceCountCol(add_count, tableId, theme) {
             if (theme) {
                 x.style.textAlign = "center";
                 if (i % 2 == 0) {
-                    x.style.backgroundColor = "#404d6c";
+//                    x.style.backgroundColor = "#404d6c";
+                    x.style.backgroundColor = "#c1cbbf";
                 } else {
-                    x.style.backgroundColor = "#55617e";
+//                    x.style.backgroundColor = "#55617e";
+                    x.style.backgroundColor = "#ebe3d8";
                 }
-                x.style.color = "#00bcd4";
+                x.style.color = "#403f48";
                 x.style.fontWeight = "bold";
                 x.style.width = "1px";
                 //            x.style.borderTop = "1px solid gray";
@@ -280,7 +282,11 @@ function sliceTable(currentPage, numPerPage, $table) {
     }
     for (k = 0; k < sliceArray.length; k++) {
         sliceArray[k].style.display = "";
+        sliceArray[k].firstElementChild.style.borderBottomLeftRadius = "0px";
+        sliceArray[k].lastElementChild.style.borderBottomRightRadius = "0px";
     }
+    sliceArray[sliceArray.length-1].firstElementChild.style.borderBottomLeftRadius = "10px";
+    sliceArray[sliceArray.length-1].lastElementChild.style.borderBottomRightRadius = "10px";
 }
 
 function getSortableColumnList(object) {
@@ -496,6 +502,7 @@ Object.prototype._tableWidth = function () {
     for (i = 0; i < count; i++) {
         th[i].style.cursor = "pointer";
         th[i].style.width = colWidth + "px";
+        th[i].style.minWidth ="150px";
         th[i].className += " epic-ui-noselect";
     }
 }
