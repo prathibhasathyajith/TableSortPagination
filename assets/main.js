@@ -281,6 +281,7 @@ function sliceTable(currentPage, numPerPage, $table) {
         rows[j].style.display = "none";
     }
     for (k = 0; k < sliceArray.length; k++) {
+        console.log(k);
         sliceArray[k].style.display = "";
         sliceArray[k].firstElementChild.style.borderBottomLeftRadius = "0px";
         sliceArray[k].lastElementChild.style.borderBottomRightRadius = "0px";
