@@ -9,11 +9,26 @@ var icon; //sort icon
 
 Object.prototype._table = function (properties) {
 
+    //---------------- validation -------------------------------
+    try {
+        properties.table_index.value;
+    } catch (e) {
+        console.error(e);
+        console.error("table_index field is mandatory. You must declare unique name or number.");
+    }
+
+    if (properties.table_title == null) {
+        properties.table_title = [];
+    }
+
+    if (properties.table_rowCount == null) {
+        properties.table_rowCount = [10, 15, 20];
+    }
+    //-----------------------------------------------------------
+
     var id = this.id;
     var i, rows, count, th, span, HiddenColumnList;
     var sort_columns = getSortableColumnList(this.getElementsByTagName("th"));
-
-
 
     rows = this.getElementsByTagName("TR");
     count = rows[0].getElementsByTagName("TH").length;
@@ -121,7 +136,7 @@ Object.prototype._table = function (properties) {
     //hide data-hidden column list
     HiddenColumnList = getHiddenColumnList(this.getElementsByTagName("th"));
     hideColumn(this, HiddenColumnList);
-    
+
     //bind row select event
     bindClickEvent(this);
 
