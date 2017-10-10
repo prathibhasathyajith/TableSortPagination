@@ -4,16 +4,21 @@
 
 <link href="assets/themes/theme2.css" rel="stylesheet" />
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<script>
+
+
+</script>
 
 <body>
-    <div>
+
+
     <table id="myTable">
         <thead>
             <tr>
                 <th data-sortable="true">Name</th>
-                <th data-sortable="false" >Country</th>
+                <th data-sortable="false">Country</th>
                 <th data-sortable="false" data-hidden="true">Country2</th>
-                <th data-sortable="true"  data-width="150">Number</th>
+                <th data-sortable="true" data-width="150">Number</th>
                 <th data-sortable="false">Time</th>
             </tr>
         </thead>
@@ -167,7 +172,6 @@
             </tr>
         </tbody>
     </table>
-        </div>
 
     <script src="assets/main.js" type="text/javascript"></script>
     <script>
@@ -177,14 +181,74 @@
             sort_all: false, // sort all columns
             sort_colum_selective: true, // sort selected columns
             table_title: ["Example table title", "l"], //[table title,position(l,c,r)]
-            table_ui_theme: true,// activate css theme 
-            table_ui_theme_name: "theme2",// theme name
-            table_count: true,//side numbers (count)
-            table_pagination: true,// pagination on/off
-            table_rowCount: [10,15,20], // one page record count
-            table_fitColumns:false // resize column sizes accourding to full width
+            table_ui_theme: true, // activate css theme 
+            table_ui_theme_name: "theme2", // theme name
+            table_count: true, //side numbers (count)
+            table_pagination: true, // pagination on/off
+            table_rowCount: [10, 15, 20], // one page record count
+            table_fitColumns: false // resize column sizes accourding to full width
         });
-        
+
+    </script>
+
+    <table id="myTable2" class=" epic-ui-table">
+        <caption style="text-align: left;">Example table title</caption>
+        <thead>
+            <tr>
+                <th data-sortable="true">Description</th>
+                <th data-sortable="false">Full Count</th>
+                <th data-sortable="false" data-hidden="true">Sortkey</th>
+                <th data-sortable="true" data-width="150">Status Code</th>
+                <th data-sortable="false">Task Code</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var json = JSON.parse(this.responseText);
+                    var table1 = document.getElementById("myTable2");
+                    var table = table1.getElementsByTagName("tbody")[0];
+                    for (var i = 0; i < json.gridModel.length; i++) {
+                        var row = table.insertRow(i);
+                        row.insertCell(0).innerHTML = json.gridModel[i].description;
+                        row.insertCell(1).innerHTML = json.gridModel[i].fullCount;
+                        row.insertCell(2).innerHTML = json.gridModel[i].sortkey;
+                        row.insertCell(3).innerHTML = json.gridModel[i].statuscode;
+                        row.insertCell(4).innerHTML = json.gridModel[i].taskcode;
+
+                    }
+
+                    table1._table({
+                        table_index: 2, //will be the pagination ID *mandatory
+                        sort_all: false, // sort all columns
+                        sort_colum_selective: true, // sort selected columns
+                        table_title: ["Example table title", "l"], //[table title,position(l,c,r)]
+                        table_ui_theme: true, // activate css theme 
+                        table_ui_theme_name: "theme2", // theme name
+                        table_count: true, //side numbers (count)
+                        table_pagination: true, // pagination on/off
+                        table_rowCount: [10, 15, 20], // one page record count
+                        table_fitColumns: false // resize column sizes accourding to full width
+                    });
+                }
+            };
+            xhttp.open("GET", "/assets/json/db.json", true);
+            xhttp.send();
+        }
+
+        loadDoc();
+
+        //create table
+        function sds() {
+
+
+
+        }
+
     </script>
 
 

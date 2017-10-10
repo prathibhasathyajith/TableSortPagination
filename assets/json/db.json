@@ -1,0 +1,158 @@
+{
+    "gridModel": [
+
+        {
+            "description": "Confirm",
+            "fullCount": 19,
+            "sortkey": 1,
+            "statuscode": "Active",
+            "taskcode": "CONFIRM"
+        },
+
+        {
+            "description": "Reject",
+            "fullCount": 19,
+            "sortkey": 2,
+            "statuscode": "Active",
+            "taskcode": "REJECT"
+        },
+
+        {
+            "description": "Value Added Service",
+            "fullCount": 19,
+            "sortkey": 3,
+            "statuscode": "Active",
+            "taskcode": "VASS"
+        },
+
+        {
+            "description": "Send",
+            "fullCount": 19,
+            "sortkey": 4,
+            "statuscode": "Active",
+            "taskcode": "SEND"
+        },
+
+        {
+            "description": "Generating Report",
+            "fullCount": 19,
+            "sortkey": 5,
+            "statuscode": "Active",
+            "taskcode": "GENERATE"
+        },
+
+        {
+            "description": "Downloading File",
+            "fullCount": 19,
+            "sortkey": 6,
+            "statuscode": "Active",
+            "taskcode": "ACSDWN"
+        },
+
+        {
+            "description": "View PDF",
+            "fullCount": 19,
+            "sortkey": 7,
+            "statuscode": "Active",
+            "taskcode": "ACSPDF"
+        },
+
+        {
+            "description": "Search",
+            "fullCount": 19,
+            "sortkey": 8,
+            "statuscode": "Active",
+            "taskcode": "SEARCH"
+        },
+
+        {
+            "description": "Void",
+            "fullCount": 19,
+            "sortkey": 9,
+            "statuscode": "Active",
+            "taskcode": "VOID"
+        },
+
+        {
+            "description": "Uploading File",
+            "fullCount": 19,
+            "sortkey": 10,
+            "statuscode": "Active",
+            "taskcode": "ACSUPL"
+        },
+
+        {
+            "description": "Reset All",
+            "fullCount": 19,
+            "sortkey": 11,
+            "statuscode": "Active",
+            "taskcode": "ACSRST"
+        },
+
+        {
+            "description": "System Logout",
+            "fullCount": 19,
+            "sortkey": 12,
+            "statuscode": "Active",
+            "taskcode": "ACSLGO"
+        },
+
+        {
+            "description": "Enrollment",
+            "fullCount": 19,
+            "sortkey": 13,
+            "statuscode": "Active",
+            "taskcode": "ACSENR"
+        },
+
+        {
+            "description": "Update",
+            "fullCount": 19,
+            "sortkey": 14,
+            "statuscode": "Active",
+            "taskcode": "ACSUPT"
+        },
+
+        {
+            "description": "Delete Existing Record",
+            "fullCount": 19,
+            "sortkey": 15,
+            "statuscode": "Active",
+            "taskcode": "ACSDEL"
+        },
+
+        {
+            "description": "View Existing Record",
+            "fullCount": 19,
+            "sortkey": "AA",
+            "statuscode": "Active",
+            "taskcode": "ACSVIW"
+        },
+
+        {
+            "description": "Assign Record",
+            "fullCount": 19,
+            "sortkey": "BB1",
+            "statuscode": "Active",
+            "taskcode": "ACSASG"
+        },
+
+        {
+            "description": "Add new Record",
+            "fullCount": 19,
+            "sortkey": "BB2",
+            "statuscode": "In-Active",
+            "taskcode": "ACSADD"
+        },
+
+        {
+            "description": "System Login",
+            "fullCount": 19,
+            "sortkey": "BB3",
+            "statuscode": "Active",
+            "taskcode": "ACSLGN"
+        }
+
+    ]
+
+}
