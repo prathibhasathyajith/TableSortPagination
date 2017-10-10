@@ -136,7 +136,9 @@ Object.prototype._table = function (properties) {
     //hide data-hidden column list
     HiddenColumnList = getHiddenColumnList(this.getElementsByTagName("th"));
     hideColumn(this, HiddenColumnList);
-
+    
+    getColumnWidth(this.getElementsByTagName("th"));
+    
     //bind row select event
     bindClickEvent(this);
 
@@ -321,6 +323,19 @@ function hideColumn(Object, HideArray) {
         });
     }
 }
+
+function getColumnWidth(object) {
+    var count = object.length;
+    var resizeColunms = [];
+    for (var i = 0; i < count; i++) {
+        if (object[i].getAttribute("data-width") != null) {
+            resizeColunms.push(i);
+            object[i].setAttribute("style", "width:"+object[i].getAttribute("data-width")+"px");
+        }
+    }
+    return resizeColunms;
+}
+
 
 //row select event bind
 function bindClickEvent(Object) {
