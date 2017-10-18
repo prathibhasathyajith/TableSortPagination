@@ -330,7 +330,8 @@ function getColumnWidth(object) {
     for (var i = 0; i < count; i++) {
         if (object[i].getAttribute("data-width") != null) {
             resizeColunms.push(i);
-            object[i].setAttribute("style", "width:"+object[i].getAttribute("data-width")+"px");
+            var include = object[i].getAttribute("style");
+            object[i].setAttribute("style", include+ "width:"+object[i].getAttribute("data-width")+"px");
         }
     }
     return resizeColunms;
