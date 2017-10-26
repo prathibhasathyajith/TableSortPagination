@@ -7,7 +7,7 @@
 var icon; //sort icon
 
 
-Object.prototype._table = function (properties) {
+Element.prototype._table = function (properties) {
 
     //---------------- validation -------------------------------
     try {
@@ -506,7 +506,7 @@ function toFirstPage(tableIndex) {
 //---------------------------------------------------------------------------------
 
 //get max length of columns
-Object.prototype._tableWidth = function () {
+Element.prototype._tableWidth = function () {
     var width, rows, count, colWidth, th, i, $pager;
 
     width = this.parentElement.offsetWidth

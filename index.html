@@ -14,7 +14,7 @@
                 <th data-sortable="true">Name</th>
                 <th data-sortable="false">Country</th>
                 <th data-sortable="false" data-hidden="true">Country2</th>
-                <th data-sortable="true" data-width="150">Number</th>
+                <th data-sortable="true">Number</th>
                 <th data-sortable="false">Time</th>
             </tr>
         </thead>
@@ -182,30 +182,33 @@
             table_count: true, //side numbers (count)
             table_pagination: true, // pagination on/off
             table_rowCount: [10, 15, 20], // one page record count
-            table_fitColumns: false // resize column sizes accourding to full width
+            table_fitColumns: true // resize column sizes accourding to full width
         });
 
     </script>
+    <div id="tt">
+        <table id="myTable2" class=" epic-ui-table">
+            <caption style="text-align: left;">Example table title</caption>
+            <thead>
+                <tr>
+                    <th data-sortable="true">Description</th>
+                    <th data-sortable="false">Full Count</th>
+                    <th data-sortable="false" data-hidden="true">Sortkey</th>
+                    <th data-sortable="true" data-width="150">Status Code</th>
+                    <th data-sortable="false">Task Code</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 
-    <table id="myTable2" class=" epic-ui-table">
-        <caption style="text-align: left;">Example table title</caption>
-        <thead>
-            <tr>
-                <th data-sortable="true">Description</th>
-                <th data-sortable="false">Full Count</th>
-                <th data-sortable="false" data-hidden="true">Sortkey</th>
-                <th data-sortable="true" data-width="150">Status Code</th>
-                <th data-sortable="false">Task Code</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
     <script>
         function loadDoc() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var json = JSON.parse(this.responseText);
+                    console.log(json);
                     var table1 = document.getElementById("myTable2");
                     var table = table1.getElementsByTagName("tbody")[0];
                     for (var i = 0; i < json.gridModel.length; i++) {
